@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title>Slider Bar</title>
+</head>
+<body>		
+	<h1>Slider bar</h1>
+	<br/>
+	<input type="range" min="0" max="100" value="0" oninput="showValue(this.value)" />
+	<span id="range">0</span>
+	<script type="text/javascript">
+	function showValue(newValue)
+	{
+		document.getElementById("range").innerHTML=newValue;
+	}
+	</script>
+	<br/>
+	<br/>
+	<p>Problems with browser compatibility? --> check <a target="_blank" href="http://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/">documentation</a></p>
+	<br/>
+	<br/>
+	<a href="css.html">CSS Index</a>
+</body>
+</html>
