@@ -20,6 +20,23 @@ div.transition:hover {
 }
 
 
+.triangle{
+  width: 0; 
+  height: 0; 
+  padding-right:5px;
+  margin-right: 5px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid yellow;
+}
+
+.alertTriangle{
+   width: 0; 
+  height: 0; 
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid red;
+}
 
 /* Diagonal NavBar Style!!*/
 
