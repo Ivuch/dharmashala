@@ -1,14 +1,75 @@
 <html>
 <head>
 	<title>Filters</title>
+	<link rel="stylesheet" type="text/css" href="css/filters.css">
+	<script type="text/javascript">
+		
+
+		//se
+		function grayscale(ctx) {
+		var pixels = ctx.getImageData(0,0,canvas.width, canvas.height);
+		var d = pixels.data;
+		for (var i=0; i<d.length; i+=4) {
+		    var r = d[i];
+		    var g = d[i+1];
+		    var b = d[i+2];
+		    var v = 0.2126*r + 0.7152*g + 0.0722*b;
+		    d[i] = d[i+1] = d[i+2] = v
+		}
+		context.putImageData(pixels, 0, 0);
+		}
+
+		//Trigger
+		function download(canvas) {
+			var canvas = document.createElement('canvas');
+			canvas.id="canvasPhoto";
+			var imageContaainer = document.getElementById("huerotate");
+			canvas.width = imageContaainer.width;
+			canvas.height = imageContaainer.height;
+			var ctx = canvas.getContext('2d');
+			document.getElementById("huerotate").onload = function(){
+				ctx.drawImage(imageContaainer, 0, 0, canvas.width, canvas.height);
+		   		var data = canvas.toDataURL("image/png");
+		  		grayscale(ctx);
+		  		if (!window.open(data)) 
+		   			{
+			     	  document.location.href = data;
+			   		}
+			}
+		}
+	</script>
 </head>
 <body>
 	<h1>Filters</h1>
 	<br/>
 	<ul>
+		<button onclick="download()">Enviar</button>
 		<li><a target="_blank" href="http://www.w3schools.com/css/css3_filters.asp">documentation</a></li>
+		<li>
+			<p>An example of all filter functions.</p>
+			<p><strong>Note:</strong> The filter property is not supported in Internet Explorer.</p>
+			<img src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="blur" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="brightness" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="contrast" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="grayscale" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<div id= "huerotate"><img class="huerotate" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300"></div>
+			<img class="invert" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="opacity" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="saturate" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="sepia" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+			<img class="shadow" src="dharma-shala.jpg" alt="Pineapple" width="300" height="300">
+		</li>
+		<li>
+			<a target="_blank" href="http://www.html5rocks.com/en/tutorials/canvas/imagefilters/">write your own Filter in JS & HTML5</a>
+		</li>
+		<a href="http://stackoverflow.com/questions/15669221/save-images-after-using-css-filter">doc1 js</a>
+		<a href="http://stackoverflow.com/questions/12620763/save-html5-canvas-with-images-as-an-image">doc 2</a>
+		<a href="https://www.google.com.ar/search?q=Failed+to+execute+%27drawImage%27+on+%27CanvasRenderingContext2D%27%3A+The+provided+value+is+not+of+type+%27(HTMLImageElement+or+HTMLVideoElement+or+HTMLCanvasElement+or+ImageBitmap)%27&oq=Failed+to+execute+%27drawImage%27+on+%27CanvasRenderingContext2D%27%3A+The+provided+value+is+not+of+type+%27(HTMLImageElement+or+HTMLVideoElement+or+HTMLCanvasElement+or+ImageBitmap)%27&aqs=chrome..69i57.451j0j7&sourceid=chrome&es_sm=93&ie=UTF-8">primary error: Failed to execute 'drawImage' on 'CanvasRenderingContext2D': The provided value is not of type '(HTMLImageElement or HTMLVideoElement or HTMLCanvasElement or ImageBitmap)'</a>
+		<a href="http://stackoverflow.com/questions/14270897/capture-save-export-an-image-with-css-filter-effects-applied">doc 3</a>
+		<a href="https://www.google.com.ar/search?q=how+to+export+an+html+photo+filtered+image&oq=how+to+export+an+html+photo+filtered+image&aqs=chrome..69i57.9632j0j7&sourceid=chrome&es_sm=93&ie=UTF-8#q=how+to+export+an+html5+image+filters">this is what you wanna do!</a>
 	</ul>
 	<br/>
-	<a href="css.html">CSS Index</a>
+	<footer><a href="css.html">CSS Index</a></footer>
 </body>
 </html>
