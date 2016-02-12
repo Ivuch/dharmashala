@@ -36,7 +36,7 @@ function actualizaInfo(maximoCaracteres) {
   var info = document.getElementById("info");
  
   if(elemento.value.length >= maximoCaracteres ) {
-    info.innerHTML = "Máximo "+maximoCaracteres+" caracteres";
+    info.innerHTML = "M&aacute;ximo "+maximoCaracteres+" caracteres";
   }
   else {
     info.innerHTML = "Puedes escribir hasta "+(maximoCaracteres-elemento.value.length)+" caracteres adicionales";
@@ -45,11 +45,12 @@ function actualizaInfo(maximoCaracteres) {
  
 </script>
 </head>
- 
 <body>
- 
-<div id="info">Máximo 100 caracteres</div>
-<textarea id="texto" onkeypress="return limita(event, 100);" onkeyup="actualizaInfo(100)" rows="6" cols="30"></textarea>
- 
+  <h1>Twitter limit</h1>
+  <div id="info">M&aacute;ximo 140 caracteres</div>
+  <textarea id="texto" onkeypress="return limita(event, 140);" onkeyup="actualizaInfo(140)" rows="6" cols="30"></textarea>
+  <br>
+  <br>
+  <a href="index.html">Index</a>
 </body>
 </html>
