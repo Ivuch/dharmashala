@@ -23,28 +23,28 @@ para poder incrementar su ganancia. Cada producto tiene una demanda y
 // var porcentaje_descuento = 0.2;
 // var nombre_producto = 'coca';
 function convienve_descuento(lista_productos, porcentaje_descuento, nombre_producto){
-	var ganancia_inicial;
-	var demandaTotal;
+	var ganancia_inicial = 0;
+	var demandaTotal = 0;
 	var prod;
-	var ganancia_final;
- 	for( var producto : lista_productos){
- 		var aux = producto[1] * producto[2]
+	var ganancia_final = 0;
+ 	for( var i =0; i<lista_productos.length;i++){
+ 		var aux = lista_productos[i][1] * lista_productos[i][2]
  		ganancia_inicial += aux
-     	if(nombre_producto != producto[0]){
-     		producto[2] -= porcentaje_descuento
+     	if(nombre_producto != lista_productos[i][0]){
+     		lista_productos[i][2] -= porcentaje_descuento
      		demandaTotal += porcentaje_descuento
-     		var ganancia = producto[1]*producto[2]
+     		var ganancia = lista_productos[i][1]*lista_productos[i][2]
      		ganancia_final += ganancia;
      	}else{
-     		prod = producto
+     		prod = lista_productos[i]
      	}
     }
     prod[2] += demandaTotal
     var  ganancia_prod = prod[1]*prod[2]
     if(ganancia_prod+ganancia_final > ganancia_inicial){
-    	console.alert(true)
+    	return true
     }else{
-    	console.alert(false)
+    	return false
     }
 }
 </script>
