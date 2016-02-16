@@ -1,10 +1,10 @@
 body{
 	margin:0;
-	background-image: url(../image/dharma-shala.jpg);
-	background-repeat: no-repeat;
+	background: url(../image/dharma-shala.jpg) no-repeat center;
 	background-size: cover;
 	width: 100%;
 	height: 100%;
+	overflow: none;
 }
 
 .nav-bar{

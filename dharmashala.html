@@ -1,17 +1,18 @@
-<html>
+<html ng-app="dharma">
 <head>
 	<title></title>
+	<script src="js/angular.min.js"></script>
+	<script src="js/dharma.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-	<p>Hello!</p>
+<body ng-controller="DharmaController as dharmaCtrl">
 	<div class="nav-bar">
 		<a href="index.html"><p>Inicio</p></a>
 		<a href="menu.html">Menu</a>
+		<a href="#">{{dharmaCtrl.producto.dharma}}</a>
 		<a href="#">Something</a>
 		<a href="#">Something</a>
-		<a href="#">Something</a>
+		<audio src="sound/flores.mp3" controls preload='auto'>Flores</audio>
 	</div>
-	<a href="index.html">index</a>
 </body>
 </html>
