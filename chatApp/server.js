@@ -2,10 +2,10 @@ var express = require("express")
 var app = express()
 var fs = require("fs")
 console.log(__dirname)
-app.use(express.static("/css"))
+app.use(express.static(__dirname+"/public"))
 
 app.get('/', function(req, res){
-	res.sendFile("/home/snoop/Desktop/The HTML Bible/dharmashala/FBchat.html")
+	res.sendFile(__dirname+"/FBchat.html")
 })
 
 app.get('/text', function(req, res){
