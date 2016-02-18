@@ -2,6 +2,7 @@
 <head>
 	<title>FB Chat</title>
 	<link rel="stylesheet" type="text/css" href="css/FBchat.css">
+	<script type="text/javascript" src="js/ajax.js"></script>
 </head>
 <body>
 	<header></header>
@@ -10,13 +11,13 @@
 			<div id="chatHeader">Ivan</div>
 			<div id="chatContent"></div>
 			<div id="chatFooter">
-			<form action="http://127.0.0.1:8081/text" method="GET">
+			<form onsubmit="ajaxReq();return false" id="chatForm">
 				<input type="text" name="text"/>
 				<input type="submit" value="Go!"/>
 			</form>
 			</div>
 		</div>
 	</div>
-	<footer></footer>
+	<footer><a target="_blank" href="http://expressjs.com/en/api.html#res">Express docs</a></footer>
 </body>
 </html>

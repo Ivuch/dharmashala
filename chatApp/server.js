@@ -1,8 +1,13 @@
 var express = require("express")
 var app = express()
 var fs = require("fs")
-console.log(__dirname)
+var bodyParser = require('body-parser');
+ 
+app.use( bodyParser.json() ); // to support JSON-encoded bodies
+app.use( bodyParser.urlencoded() ); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
+
+console.log(__dirname)
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname+"/FBchat.html")
@@ -14,9 +19,26 @@ app.get('/text', function(req, res){
 			return console.error(err)
 		}
 		console.log(json.toString())
+		console.log(req.query.text)
 		res.send(json.toString())
 	})
 })
+
+app.post('/text', function(req, res){
+ console.log(req.body.text)
+ res.send(req.query.text)
+})
+
+/* DO we need this ? 
+
+app.use(express.urlencoded());
+app.use(express.json());
+ 
+app.post('/user/login', function(req, res) {
+  console.log('name: ' + req.param('name'));
+});
+
+*/
 
 var server = app.listen(8081, function(){
 
