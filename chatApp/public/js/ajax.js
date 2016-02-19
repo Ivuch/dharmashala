@@ -47,6 +47,7 @@ function ajaxReq(){
            		var json = JSON.parse(xhr.responseText)
               var chat = document.getElementById("chatContent")
               chat.innerHTML = chat.innerHTML+'<br>'+ json.text;
+              updateScroll()
               document.getElementById("chatForm").elements["text"].value = ""
            }
            else if(xhr.status == 400) {
@@ -62,3 +63,16 @@ function ajaxReq(){
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(params);
 }
+
+var scrolled = false;
+function updateScroll(){
+    if(!scrolled){
+        var element = document.getElementById("chatContent");
+        element.scrollTop = element.scrollHeight;
+    }
+}
+/*If you want to scrolldown ONLY if the user didn't move
+$("#yourDivID").on('scroll', function(){
+    scrolled=true;
+});
+*/
