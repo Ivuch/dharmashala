@@ -19,7 +19,6 @@ app.get('/text', function(req, res){
 			return console.error(err)
 		}
 		console.log(json.toString())
-		console.log(req.query.text)
 		res.send(json.toString())
 	})
 })
@@ -27,7 +26,7 @@ app.get('/text', function(req, res){
 app.post('/text', function(req, res){
  console.log(req.body)
  console.log("che "+req.body.text)
- res.send(req.body.text)
+ res.send(req.body)
 })
 
 /* DO we need this ? 
