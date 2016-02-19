@@ -7,7 +7,6 @@ app.use( bodyParser.json() ); // to support JSON-encoded bodies
 app.use( bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
 
-console.log(__dirname)
 
 app.get('/', function(req, res){
 	res.sendFile(__dirname+"/FBchat.html")
@@ -45,5 +44,6 @@ var server = app.listen(8081, function(){
 	var host = server.address().address
 	var port = server.address().port
 
-	console.log("host: "+host+" , port: "+port)
+	console.log("Server Running in http://127.0.0.1:"+port)
+	console.log("Base dir: "+__dirname)
 })
