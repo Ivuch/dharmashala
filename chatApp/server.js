@@ -4,7 +4,7 @@ var fs = require("fs")
 var bodyParser = require('body-parser');
  
 app.use( bodyParser.json() ); // to support JSON-encoded bodies
-app.use( bodyParser.urlencoded() ); // to support URL-encoded bodies
+app.use( bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
 
 console.log(__dirname)
@@ -25,8 +25,9 @@ app.get('/text', function(req, res){
 })
 
 app.post('/text', function(req, res){
- console.log(req.body.text)
- res.send(req.query.text)
+ console.log(req.body)
+ console.log("che "+req.body.text)
+ res.send(req.body.text)
 })
 
 /* DO we need this ? 

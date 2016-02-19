@@ -2,7 +2,7 @@ function ajaxReq(){
 	var text = document.getElementById("chatForm").elements["text"].value
 	var url = "http://127.0.0.1:8081/text?text="+text
 	var urlPost = "http://127.0.0.1:8081/text"
-	var params = text
+	var params = "text="+text
 	var xhr;
 
     if (window.XMLHttpRequest) {
@@ -30,5 +30,6 @@ function ajaxReq(){
     }
 
     xhr.open("POST", urlPost, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(params);
 }
