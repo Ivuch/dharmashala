@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded",function(){
-  var url = "http://127.0.0.1:8081/text"
+  var url = "http://127.0.0.1:8082/text"
   var xhrg
     if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 function ajaxReq(){
 	var text = document.getElementById("chatForm").elements["text"].value
-	var urlPost = "http://127.0.0.1:8081/text"
+	var urlPost = "http://127.0.0.1:8082/text"
 	var params = "text="+text
   var xhr
     if (window.XMLHttpRequest) {

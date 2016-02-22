@@ -28,18 +28,7 @@ app.post('/text', function(req, res){
  res.send(req.body)
 })
 
-/* DO we need this ? 
-
-app.use(express.urlencoded());
-app.use(express.json());
- 
-app.post('/user/login', function(req, res) {
-  console.log('name: ' + req.param('name'));
-});
-
-*/
-
-var server = app.listen(8081, function(){
+var server = app.listen(8082, function(){
 
 	var host = server.address().address
 	var port = server.address().port
