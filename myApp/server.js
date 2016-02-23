@@ -8,8 +8,21 @@ app.use( bodyParser.urlencoded({ extended: true })); // to support URL-encoded b
 app.use(express.static(__dirname+"/public"))
 
 
+/**  ROUTER INIT   **/
+
 app.get('/', function(req, res){
-	res.sendFile(__dirname+"/FBchat.html")
+	res.sendFile(__dirname+"/login.html")
+})
+
+app.post('/login', function(req, res){
+	console.log(req.body)
+	if(req.body.user == "ivuch" && req.body.password == "ok"){
+		console.log("I'm in")
+		res.sendFile(__dirname+"/FBchat.html")
+	}else{
+		console.log("not in")
+		res.sendFile(__dirname+"/login.html")
+	}
 })
 
 app.get('/text', function(req, res){
@@ -27,6 +40,8 @@ app.post('/text', function(req, res){
  console.log("che "+req.body.text)
  res.send(req.body)
 })
+
+/**  ROUTER END   **/
 
 var server = app.listen(8082, function(){
 
