@@ -37,7 +37,6 @@ app.get('/text', function(req, res){
 
 app.post('/text', function(req, res){
  console.log(req.body)
- console.log("che "+req.body.text)
  res.send(req.body)
 })
 
