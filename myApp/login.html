@@ -2,10 +2,11 @@
 <head>
 	<title>login</title>
 	<link rel="stylesheet" type="text/css" href="css/FBchat.css">
+	<script type="text/javascript" src="js/ajax.js"></script>
 </head>
 <body>
 	<header>
-		<form action="/login" method="POST" id="chatForm">
+		<form onsubmit="login();return false" id="loginForm">
 			<input type="text"	name="user">
 			<input type="password" name="password" autocomplete="off"/>
 			<input type="submit" value="Go!"/>

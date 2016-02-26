@@ -17,11 +17,10 @@ app.get('/', function(req, res){
 app.post('/login', function(req, res){
 	console.log(req.body)
 	if(req.body.user == "ivuch" && req.body.password == "ok"){
-		console.log("I'm in")
 		res.sendFile(__dirname+"/FBchat.html")
 	}else{
 		console.log("not in")
-		res.sendFile(__dirname+"/login.html")
+		res.json({isERROR : true})
 	}
 })
 

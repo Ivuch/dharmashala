@@ -1,3 +1,4 @@
+var baseURL = "http://127.0.0.1:8082"
 function getNewXHRObject(){
   var xhr
   if (window.XMLHttpRequest) {
@@ -7,8 +8,45 @@ function getNewXHRObject(){
     }
   return xhr;
 }
+
+function login(){
+  var xhr = getNewXHRObject()
+  var url = baseURL+"/login"
+  var user = document.getElementById("loginForm").elements["user"].value
+  var pass = document.getElementById("loginForm").elements["password"].value
+  var params = "user="+user+"&password="+pass
+  xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE ) {
+           if(xhr.status == 200){
+             var content = xhr.getResponseHeader("Content-Type")
+             if(content == "application/json; charset=utf-8"){
+                var json = JSON.parse(xhr.responseText)
+              if(json.isERROR){
+                document.getElementById("loginForm").classList.add("error")
+               }
+             }else{
+                  document.open()
+                  document.write(xhr.responseText)
+                  document.close()
+              }
+              
+           }
+           else if(xhr.status == 400) {
+              alert('There was an error 400')
+           }
+           else {
+               alert('something else other than 200 was returned')
+           }
+        }
+    }
+
+    xhr.open("POST", url, true)
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(params)
+}
+
 document.addEventListener("DOMContentLoaded",function(){
-  var url = "http://127.0.0.1:8082/text"
+  var url = baseURL+"/text"
   var xhr = getNewXHRObject();
     xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE ) {
@@ -33,7 +71,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 function ajaxReq(){
 	var text = document.getElementById("chatForm").elements["text"].value
-	var urlPost = "http://127.0.0.1:8082/text"
+	var urlPost = baseURL+"/text"
 	var params = "text="+text
   var xhr = getNewXHRObject()
     xhr.onreadystatechange = function() {

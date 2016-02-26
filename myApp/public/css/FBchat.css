@@ -36,3 +36,7 @@ footer{
     background: linear-gradient(#ffffff, black, black, black, #ffffff); /* Standard syntax <-- Normal set for gradient*/
 
 }
+
+.error input[type=text], .error input[type=password]{
+	border: 1px solid red;
+}
