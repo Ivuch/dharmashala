@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 app.use( bodyParser.json() ); // to support JSON-encoded bodies
 app.use( bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
+app.use(express.cookieParser('S3CRE7'));
+app.use(express.session());
 
 
 /**  ROUTER INIT   **/
@@ -17,6 +19,7 @@ app.get('/', function(req, res){
 app.post('/login', function(req, res){
 	console.log(req.body)
 	if(req.body.user == "ivuch" && req.body.password == "ok"){
+		req.session.id = 1
 		res.sendFile(__dirname+"/FBchat.html")
 	}else{
 		console.log("not in")
@@ -36,6 +39,7 @@ app.get('/text', function(req, res){
 
 app.post('/text', function(req, res){
  console.log(req.body)
+ console.log("you are user number: "+req.session.id)
  res.send(req.body)
 })
 
