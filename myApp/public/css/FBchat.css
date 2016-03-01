@@ -8,11 +8,14 @@ header{
 #content{
 	height: 90%;
 }
+/* CHAT APP */
 #chat{
 	margin-left: 130px;
 	height: 280px;
 	width: 220px;
 	border: 2px solid black;
+	display: inline-block;
+	vertical-align: top;
 }
 #chatHeader{
 	height: 20px;
@@ -26,6 +29,8 @@ header{
 #chatFooter{
 	height: 23px;
 }
+/* /CHAT APP */
+
 footer{
 	height: 10px;
 	bottom:0px;
@@ -37,6 +42,29 @@ footer{
 
 }
 
-.error input[type=text], .error input[type=password]{
+/* Contacts */
+#contacts{
+	margin-left: 430px;
+	height: 100%;
+	width: 220px;
+	border: 2px solid black;
+	display: inline-block;
+}
+#contactsHeader{
+	height: 20px;
+	background-color: #3b5998;
+	color: white;
+}
+#contactsContent{
+	height: 80%;
+	overflow-y: auto;
+}
+#contactsFooter{
+	height: 23px;
+	bottom: 0;
+}
+/* /Contects */
+
+.error{
 	border: 1px solid red;
 }

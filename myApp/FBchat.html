@@ -2,7 +2,6 @@
 <head>
 	<title>FB Chat</title>
 	<link rel="stylesheet" type="text/css" href="css/FBchat.css">
-	<script type="text/javascript" src="js/ajax.js"></script>
 </head>
 <body>
 	<header></header>
@@ -17,7 +16,18 @@
 			</form>
 			</div>
 		</div>
+		<div id="contacts">
+			<div id="contactsHeader">Contactos</div>
+			<div id="contactsContent"></div>
+			<div id="contactsFooter">
+				<input type="text" name="text" autocomplete="off"/>
+				<input type="submit" value="Search"/>
+			</div>
+		</div>
 	</div>
 	<footer><a target="_blank" href="http://expressjs.com/en/api.html#res">Express docs</a></footer>
+	<script type="text/javascript" src="js/FBchat/FBchat.js"></script>
+	<script type="text/javascript" src="js/generic.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
 </body>
 </html>

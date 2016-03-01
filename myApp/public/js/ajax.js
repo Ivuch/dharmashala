@@ -18,9 +18,9 @@ LOGIN function():
 **/
 function login(){
   var url = baseURL+"/login"
-  var user = document.getElementById("loginForm").elements["user"].value
-  var pass = document.getElementById("loginForm").elements["password"].value
-  var params = "user="+user+"&password="+pass
+  var user = $("input[name=user]")
+  var pass = document.getElementById("loginForm").elements["password"]
+  var params = "user="+user.val()+"&password="+pass.value
   var xhr = getNewXHRObject()
   xhr.open("POST", url, true)
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -32,7 +32,8 @@ function login(){
           if(content == "application/json; charset=utf-8"){
             var json = JSON.parse(xhr.responseText)
             if(json.isERROR){
-              document.getElementById("loginForm").classList.add("error")
+              user.addClass("error")
+              pass.classList.add("error")
             }
           }else{
             document.open()
@@ -48,34 +49,11 @@ function login(){
   }
 }
 
-/** Document.onLoad(callback)**/
-document.addEventListener("DOMContentLoaded",function(){
-  var url = baseURL+"/text"
-  var xhr = getNewXHRObject();
-  xhr.open("GET", url, true)
-  xhr.send(null)
-  xhr.onreadystatechange = function() {
-      if (xhr.readyState == XMLHttpRequest.DONE ) {
-         if(xhr.status == 200){
-            var json = JSON.parse(xhr.responseText)
-            var text= json.user.conversations[0].messages[0].text
-             document.getElementById("chatContent").innerHTML = text;
-         }
-         else if(xhr.status == 400) {
-            alert('There was an error 400')
-         }
-         else {
-             alert('something else other than 200 was returned')
-         }
-      }
-  }
-})
-
 /**  AJAX Request Template**/
 function ajaxReq(){
   var url = baseURL+"/text"
-	var text = document.getElementById("chatForm").elements["text"].value
-	var params = "text="+text
+	var text = document.getElementById("chatForm").elements["text"]
+	var params = "text="+text.value
   var xhr = getNewXHRObject()
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -87,7 +65,7 @@ function ajaxReq(){
         var chat = document.getElementById("chatContent")
         chat.innerHTML = chat.innerHTML+'<br>'+ json.text;
         updateScroll()
-        document.getElementById("chatForm").elements["text"].value = ""
+        text.value = ""
       }
       else if(xhr.status == 400) {
         alert('There was an error 400')
