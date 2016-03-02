@@ -2,12 +2,18 @@ var express = require("express")
 var app = express()
 var fs = require("fs")
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
+var session = require('express-session')
  
-app.use( bodyParser.json() ); // to support JSON-encoded bodies
-app.use( bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
-app.use(express.cookieParser('S3CRE7'));
-app.use(express.session());
+app.use(session({
+  secret:'S3KR3T',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 
 
 /**  ROUTER INIT   **/
@@ -18,28 +24,39 @@ app.get('/', function(req, res){
 
 app.post('/login', function(req, res){
 	console.log(req.body)
-	if(req.body.user == "ivuch" && req.body.password == "ok"){
-		req.session.id = 1
-		res.sendFile(__dirname+"/FBchat.html")
-	}else{
-		console.log("not in")
-		res.json({isERROR : true})
-	}
-})
-
-app.get('/text', function(req, res){
-	fs.readFile("../json/FBchat.json", function(err, json){
+	fs.readFile("../json/FBchat.json", function(err, rs){
 		if(err){
 			return console.error(err)
 		}
-		console.log(json.toString())
-		res.send(json.toString())
+		console.log(rs.toString())
+		var json = JSON.parse(rs)
+		var user = json.user.name
+		var userID = json.user.id
+		if(req.body.user == user && req.body.password == "ok"){
+			console.log(req.session.id)
+			req.session.userID = userID
+			res.sendFile(__dirname+"/FBchat.html")
+		}else{
+			console.log("not in")
+			res.json({isERROR : true})
+		}
+	})
+})
+
+app.get('/text', function(req, res){
+	fs.readFile("../json/FBchat.json", function(err, rs){
+		if(err){
+			return console.error(err)
+		}
+		console.log(rs.toString())
+		res.send(rs.toString())
 	})
 })
 
 app.post('/text', function(req, res){
  console.log(req.body)
  console.log("you are user number: "+req.session.id)
+ console.log("and your userID is: "+req.session.userID)
  res.send(req.body)
 })
 
