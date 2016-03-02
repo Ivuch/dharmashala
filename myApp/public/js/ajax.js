@@ -63,7 +63,7 @@ function ajaxReq(){
      if(xhr.status == 200){
      		var json = JSON.parse(xhr.responseText)
         var chat = document.getElementById("chatContent")
-        chat.innerHTML = chat.innerHTML+'<br>'+ json.text;
+        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+json.text+'</span>';
         updateScroll()
         text.value = ""
       }

@@ -29,6 +29,13 @@ header{
 #chatFooter{
 	height: 23px;
 }
+#chatContent span{
+	background-color: #E0EDFF;
+	border-radius: 10px;
+	clear:both;
+   	float:right;
+   	padding: 4px;
+}
 /* /CHAT APP */
 
 footer{
