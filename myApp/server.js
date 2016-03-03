@@ -4,6 +4,14 @@ var fs = require("fs")
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
 var session = require('express-session')
+var mongoose = require('mongoose');
+ 
+mongoose.connect('mongodb://127.0.0.1/myApp');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("we're connected!")
+});
  
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
