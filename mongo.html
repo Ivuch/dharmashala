@@ -1,0 +1,48 @@
+<html>
+<head>
+	<title>Mongo Shell</title>
+</head>
+<body>
+	<h1>Mongo Shell</h1>
+	<br>
+	<ul>
+		<li>
+			mongo //to start the mongodb shell
+		</li>
+		<br>
+		<li>
+			Drop database:
+			<br>
+			> use mydb;<br> 
+			> db.dropDatabase(); //will delete the database and return { "dropped" : "<i>dbname</i>", "ok" : 1 }
+		</li>
+		<br>
+		<li>
+			Show and List all db's:
+			<br>
+			> show dbs //to list existing databases
+		</li>
+		<br>
+		<li>
+			Creates or switch to a db:
+			<br>
+			> use <i>dbname</i> //creates a db named "<i>dbname</i>"
+		</li>
+		<br>
+		<li>
+			Show the actual db:
+			<br>
+			> db //should show <i>dbname</i> just to be sure I'm working with the right database
+		</li>
+		<br>
+		<li>
+			<h2>Files:</h2>
+			mongod.conf: /etc/
+			<br>
+			dbPath: /var/lib/mongodb (se setea en mongod.conf)
+		</li>
+	</ul>
+	<br>
+	<a href="index.html">Index</a>
+</body>
+</html>
