@@ -63,7 +63,17 @@ function ajaxReq(){
      if(xhr.status == 200){
      		var json = JSON.parse(xhr.responseText)
         var chat = document.getElementById("chatContent")        
-        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+json.text.replace(':P', '<img src="images/emoticons/lengua2.gif"/>')+'</span>';
+        var finalText = json.text.replace(':P', '<img src="images/emoticons/lengua2.gif"/>')
+        finalText = finalText.replace(':p','<img src="images/emoticons/lengua2.gif"/>')
+        finalText = finalText.replace('(H)', '<img src="images/emoticons/canchero2.gif"/>')
+        finalText = finalText.replace('(h)', '<img src="images/emoticons/canchero2.gif"/>')
+        finalText = finalText.replace(':oc','<img src="images/emoticons/siclaro.gif"/>')
+        finalText = finalText.replace('(U)','<img src="images/emoticons/brheart.gif"/>')
+        finalText = finalText.replace('(u)','<img src="images/emoticons/brheart.gif"/>')
+        finalText = finalText.replace(':O','<img src="images/emoticons/oooo.gif"/>')
+        finalText = finalText.replace(':o','<img src="images/emoticons/oooo.gif"/>')
+      
+        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalText+'</span>';
         updateScroll()
         text.value = ""
       }
