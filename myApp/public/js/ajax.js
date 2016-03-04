@@ -72,6 +72,8 @@ function ajaxReq(){
         finalText = finalText.replace('(u)','<img src="images/emoticons/brheart.gif"/>')
         finalText = finalText.replace(':O','<img src="images/emoticons/oooo.gif"/>')
         finalText = finalText.replace(':o','<img src="images/emoticons/oooo.gif"/>')
+        finalText = finalText.replace('nono','<img src="images/emoticons/nono.gif"/>')
+
       
         chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalText+'</span>';
         updateScroll()
