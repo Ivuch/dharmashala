@@ -20,3 +20,17 @@ document.addEventListener("DOMContentLoaded",function(){
       }
   }
 })
+
+//Para reemplazar código String por Emoji en el mismo Textbox
+var textBox = $("input[name=text]")
+textBox.change(function(){
+  var a = textBox.val().replace(':P', '<img src="images/emoticons/lengua2.gif" alt=":P" />')
+  textBox.html(a)
+})
+
+/* Ver si algo de esto funciona.
+  var element = $('<img />');
+  text = textBox.val().split(':P');
+  $('.result').append(text[0],element,text[1]);
+  $(element).attr('src','images/emoticons/lengua2.gif');
+*/

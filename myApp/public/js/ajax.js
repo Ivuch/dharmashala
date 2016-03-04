@@ -62,8 +62,8 @@ function ajaxReq(){
     if (xhr.readyState == XMLHttpRequest.DONE ) {
      if(xhr.status == 200){
      		var json = JSON.parse(xhr.responseText)
-        var chat = document.getElementById("chatContent")
-        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+json.text+'</span>';
+        var chat = document.getElementById("chatContent")        
+        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+json.text.replace(':P', '<img src="images/emoticons/lengua2.gif"/>')+'</span>';
         updateScroll()
         text.value = ""
       }
