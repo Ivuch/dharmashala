@@ -1,4 +1,4 @@
-var baseURL = "http://127.0.0.1:8082"
+var baseURL = "http://"+document.domain+":8080"
 function getNewXHRObject(){
   var xhr
   if (window.XMLHttpRequest) {
@@ -53,7 +53,14 @@ function login(){
 function ajaxReq(){
   var url = baseURL+"/text"
 	var text = document.getElementById("chatForm").elements["text"]
+  var chat = document.getElementById("chatContent")
 	var params = "text="+text.value
+  socket.emit('chat message', text.value)
+  socket.on('chat message', function(msg){
+    chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+msg+'</span>';
+    updateScroll()
+    text.value = ""
+  });
   var xhr = getNewXHRObject()
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -61,8 +68,7 @@ function ajaxReq(){
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE ) {
      if(xhr.status == 200){
-     		var json = JSON.parse(xhr.responseText)
-        var chat = document.getElementById("chatContent")        
+     		var json = JSON.parse(xhr.responseText)        
         var finalText = json.text.replace(/:P/g, '<img src="images/emoticons/lengua2.gif"/>')
         finalText = finalText.replace(/:p/g,'<img src="images/emoticons/lengua2.gif"/>')
         finalText = finalText.replace(/\(H\)/g, '<img src="images/emoticons/canchero2.gif"/>')
