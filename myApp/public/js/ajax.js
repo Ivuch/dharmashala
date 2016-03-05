@@ -49,18 +49,26 @@ function login(){
   }
 }
 
-/**  AJAX Request Template**/
+/**  AJAX Request Template1: **/
 function ajaxReq(){
-  var url = baseURL+"/text"
 	var text = document.getElementById("chatForm").elements["text"]
-  var chat = document.getElementById("chatContent")
-	var params = "text="+text.value
   socket.emit('chat message', text.value)
-  socket.on('chat message', function(msg){
-    chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+msg+'</span>';
-    updateScroll()
-    text.value = ""
-  });
+}
+
+socket.on('chat message', function(msg){
+  var text = document.getElementById("chatForm").elements["text"]
+  var chat = document.getElementById("chatContent")
+  var finalMsg = getEmojis(msg)
+  chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalMsg+'</span>';
+  updateScroll()
+  text.value = ""
+});
+ /* AJAX Request Template2: "HTTP POST verb - Chat AJAX implementation."
+function ajaxReq(){
+  var text = document.getElementById("chatForm").elements["text"]
+  var chat = document.getElementById("chatContent")
+  var url = baseURL+"/text"
+  var params = "text="+text.value
   var xhr = getNewXHRObject()
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -69,26 +77,8 @@ function ajaxReq(){
     if (xhr.readyState == XMLHttpRequest.DONE ) {
      if(xhr.status == 200){
      		var json = JSON.parse(xhr.responseText)        
-        var finalText = json.text.replace(/:P/g, '<img src="images/emoticons/lengua2.gif"/>')
-        finalText = finalText.replace(/:p/g,'<img src="images/emoticons/lengua2.gif"/>')
-        finalText = finalText.replace(/\(H\)/g, '<img src="images/emoticons/canchero2.gif"/>')
-        finalText = finalText.replace(/\(h\)/g, '<img src="images/emoticons/canchero2.gif"/>')
-        finalText = finalText.replace(/:oc/g,'<img src="images/emoticons/seeclaro.gif"/>')
-        finalText = finalText.replace(/\(U\)/g,'<img src="images/emoticons/brheart.gif"/>')
-        finalText = finalText.replace(/\(u\)/g,'<img src="images/emoticons/brheart.gif"/>')
-        finalText = finalText.replace(/:O/g,'<img src="images/emoticons/oooo.gif"/>')
-        finalText = finalText.replace(/:o/g,'<img src="images/emoticons/oooo.gif"/>')
-        finalText = finalText.replace(/nono/g,'<img src="images/emoticons/nono.gif"/>')
-        finalText = finalText.replace(/\(L\)/g,'<img src="images/emoticons/heart.gif"/>')
-        finalText = finalText.replace(/\(l\)/g,'<img src="images/emoticons/heart.gif"/>')
-        finalText = finalText.replace(/:\)/g,'<img src="images/emoticons/smile.gif"/>')
-        finalText = finalText.replace(/:\(/g,'<img src="images/emoticons/sad.gif"/>')
-        finalText = finalText.replace(/:D/g,'<img src="images/emoticons/happy.gif"/>')
-        finalText = finalText.replace(/dddd/g,'<img src="images/emoticons/lengua.gif"/>')
-        finalText = finalText.replace(/noniii/g,'<img src="images/emoticons/noni.gif"/>')
-        finalText = finalText.replace(/;\)/g,'<img src="images/emoticons/wink.gif"/>')
-
-        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalText+'</span>';
+        var finalMsg = getEmojis(json.text)
+        chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalMsg+'</span>';
         updateScroll()
         text.value = ""
       }
@@ -100,6 +90,29 @@ function ajaxReq(){
       }
     }
   }
+}
+*/
+
+function getEmojis(msg){
+    var finalMsg = msg.replace(/:P/g, '<img src="images/emoticons/lengua2.gif"/>')
+        finalMsg = finalMsg.replace(/:p/g,'<img src="images/emoticons/lengua2.gif"/>')
+        finalMsg = finalMsg.replace(/\(H\)/g, '<img src="images/emoticons/canchero2.gif"/>')
+        finalMsg = finalMsg.replace(/\(h\)/g, '<img src="images/emoticons/canchero2.gif"/>')
+        finalMsg = finalMsg.replace(/:oc/g,'<img src="images/emoticons/seeclaro.gif"/>')
+        finalMsg = finalMsg.replace(/\(U\)/g,'<img src="images/emoticons/brheart.gif"/>')
+        finalMsg = finalMsg.replace(/\(u\)/g,'<img src="images/emoticons/brheart.gif"/>')
+        finalMsg = finalMsg.replace(/:O/g,'<img src="images/emoticons/oooo.gif"/>')
+        finalMsg = finalMsg.replace(/:o/g,'<img src="images/emoticons/oooo.gif"/>')
+        finalMsg = finalMsg.replace(/nono/g,'<img src="images/emoticons/nono.gif"/>')
+        finalMsg = finalMsg.replace(/\(L\)/g,'<img src="images/emoticons/heart.gif"/>')
+        finalMsg = finalMsg.replace(/\(l\)/g,'<img src="images/emoticons/heart.gif"/>')
+        finalMsg = finalMsg.replace(/:\)/g,'<img src="images/emoticons/smile.gif"/>')
+        finalMsg = finalMsg.replace(/:\(/g,'<img src="images/emoticons/sad.gif"/>')
+        finalMsg = finalMsg.replace(/:D/g,'<img src="images/emoticons/happy.gif"/>')
+        finalMsg = finalMsg.replace(/dddd/g,'<img src="images/emoticons/lengua.gif"/>')
+        finalMsg = finalMsg.replace(/noniii/g,'<img src="images/emoticons/noni.gif"/>')
+        finalMsg = finalMsg.replace(/;\)/g,'<img src="images/emoticons/wink.gif"/>')
+        return finalMsg
 }
 
 var scrolled = false;
