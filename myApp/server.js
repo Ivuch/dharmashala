@@ -1,5 +1,7 @@
 var express = require("express")
 var app = express()
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var fs = require("fs")
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser')
@@ -13,6 +15,18 @@ db.once('open', function() {
   console.log("we're connected!")
 });
  
+io.on('connection', function(socket){
+  console.log('a user connected');
+
+	socket.on('chat message', function(msg){
+		 io.emit('chat message', msg);
+  });
+  
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
@@ -36,12 +50,12 @@ app.post('/login', function(req, res){
 		if(err){
 			return console.error(err)
 		}
-		console.log(rs.toString())
+		console.log("JSON levantado correctamente")
 		var json = JSON.parse(rs)
 		var user = json.user.name
 		var userID = json.user.id
 		if(req.body.user == user && req.body.password == "linda"){
-			console.log(req.session.id)
+			console.log("login status: OK - "+req.session.id)
 			req.session.userID = userID
 			res.sendFile(__dirname+"/FBchat.html")
 		}else{
@@ -56,7 +70,7 @@ app.get('/text', function(req, res){
 		if(err){
 			return console.error(err)
 		}
-		console.log(rs.toString())
+		console.log("JSON levantado correctamente")
 		res.send(rs.toString())
 	})
 })
@@ -70,7 +84,7 @@ app.post('/text', function(req, res){
 
 /**  ROUTER END   **/
 
-var server = app.listen(8082, function(){
+var server = http.listen(8080, function(){
 
 	var host = server.address().address
 	var port = server.address().port

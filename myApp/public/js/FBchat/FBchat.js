@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded",function(){
   var xhr = getNewXHRObject();
   xhr.open("GET", url, true)
   xhr.send(null)
+
+/*  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.src = "http://"+document.domain+":8080/socket.io/socket.io.js";
+  document.body.appendChild(s)
+*/
   xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE ) {
          if(xhr.status == 200){
@@ -20,6 +26,8 @@ document.addEventListener("DOMContentLoaded",function(){
       }
   }
 })
+
+var socket = io();
 
 //Para reemplazar código String por Emoji en el mismo Textbox
 var textBox = $("input[name=text]")
