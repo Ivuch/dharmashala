@@ -67,7 +67,7 @@ function ajaxReq(){
         finalText = finalText.replace(/:p/g,'<img src="images/emoticons/lengua2.gif"/>')
         finalText = finalText.replace(/\(H\)/g, '<img src="images/emoticons/canchero2.gif"/>')
         finalText = finalText.replace(/\(h\)/g, '<img src="images/emoticons/canchero2.gif"/>')
-        finalText = finalText.replace(/:oc/g,'<img src="images/emoticons/siclaro.gif"/>')
+        finalText = finalText.replace(/:oc/g,'<img src="images/emoticons/seeclaro.gif"/>')
         finalText = finalText.replace(/\(U\)/g,'<img src="images/emoticons/brheart.gif"/>')
         finalText = finalText.replace(/\(u\)/g,'<img src="images/emoticons/brheart.gif"/>')
         finalText = finalText.replace(/:O/g,'<img src="images/emoticons/oooo.gif"/>')
@@ -75,7 +75,13 @@ function ajaxReq(){
         finalText = finalText.replace(/nono/g,'<img src="images/emoticons/nono.gif"/>')
         finalText = finalText.replace(/\(L\)/g,'<img src="images/emoticons/heart.gif"/>')
         finalText = finalText.replace(/\(l\)/g,'<img src="images/emoticons/heart.gif"/>')
-      
+        finalText = finalText.replace(/:\)/g,'<img src="images/emoticons/smile.gif"/>')
+        finalText = finalText.replace(/:\(/g,'<img src="images/emoticons/sad.gif"/>')
+        finalText = finalText.replace(/:D/g,'<img src="images/emoticons/happy.gif"/>')
+        finalText = finalText.replace(/dddd/g,'<img src="images/emoticons/lengua.gif"/>')
+        finalText = finalText.replace(/noniii/g,'<img src="images/emoticons/noni.gif"/>')
+        finalText = finalText.replace(/;\)/g,'<img src="images/emoticons/wink.gif"/>')
+
         chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalText+'</span>';
         updateScroll()
         text.value = ""

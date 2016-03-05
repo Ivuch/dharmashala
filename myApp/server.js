@@ -40,7 +40,7 @@ app.post('/login', function(req, res){
 		var json = JSON.parse(rs)
 		var user = json.user.name
 		var userID = json.user.id
-		if(req.body.user == user && req.body.password == "ok"){
+		if(req.body.user == user && req.body.password == "linda"){
 			console.log(req.session.id)
 			req.session.userID = userID
 			res.sendFile(__dirname+"/FBchat.html")
