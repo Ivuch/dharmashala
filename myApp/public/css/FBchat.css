@@ -3,7 +3,7 @@ body{
 }
 header{
 	height: 30px;
-	background-color: #3b5998;
+	background-color: #FCD9DD; /*#3b5998;*/
 }
 #content{
 	height: 90%;
@@ -19,8 +19,8 @@ header{
 }
 #chatHeader{
 	height: 20px;
-	background-color: #3b5998;
-	color: white;
+	background-color: #FCD9DD; /*#3b5998;*/
+	color: red;
 }
 #chatContent{
 	height: 235px;
@@ -59,8 +59,8 @@ footer{
 }
 #contactsHeader{
 	height: 20px;
-	background-color: #3b5998;
-	color: white;
+	background-color: #FCD9DD; /*#3b5998;*/
+	color: red;
 }
 #contactsContent{
 	height: 80%;
