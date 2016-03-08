@@ -49,20 +49,6 @@ function login(){
   }
 }
 
-/**  AJAX Request Template1: **/
-function ajaxReq(){
-	var text = document.getElementById("chatForm").elements["text"]
-  socket.emit('chat message', text.value)
-}
-
-socket.on('chat message', function(msg){
-  var text = document.getElementById("chatForm").elements["text"]
-  var chat = document.getElementById("chatContent")
-  var finalMsg = getEmojis(msg)
-  chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalMsg+'</span>';
-  updateScroll()
-  text.value = ""
-});
  /* AJAX Request Template2: "HTTP POST verb - Chat AJAX implementation."
 function ajaxReq(){
   var text = document.getElementById("chatForm").elements["text"]
@@ -91,39 +77,4 @@ function ajaxReq(){
     }
   }
 }
-*/
-
-function getEmojis(msg){
-    var finalMsg = msg.replace(/:P/g, '<img src="images/emoticons/lengua2.gif"/>')
-        finalMsg = finalMsg.replace(/:p/g,'<img src="images/emoticons/lengua2.gif"/>')
-        finalMsg = finalMsg.replace(/\(H\)/g, '<img src="images/emoticons/canchero2.gif"/>')
-        finalMsg = finalMsg.replace(/\(h\)/g, '<img src="images/emoticons/canchero2.gif"/>')
-        finalMsg = finalMsg.replace(/:oc/g,'<img src="images/emoticons/seeclaro.gif"/>')
-        finalMsg = finalMsg.replace(/\(U\)/g,'<img src="images/emoticons/brheart.gif"/>')
-        finalMsg = finalMsg.replace(/\(u\)/g,'<img src="images/emoticons/brheart.gif"/>')
-        finalMsg = finalMsg.replace(/:O/g,'<img src="images/emoticons/oooo.gif"/>')
-        finalMsg = finalMsg.replace(/:o/g,'<img src="images/emoticons/oooo.gif"/>')
-        finalMsg = finalMsg.replace(/nono/g,'<img src="images/emoticons/nono.gif"/>')
-        finalMsg = finalMsg.replace(/\(L\)/g,'<img src="images/emoticons/heart.gif"/>')
-        finalMsg = finalMsg.replace(/\(l\)/g,'<img src="images/emoticons/heart.gif"/>')
-        finalMsg = finalMsg.replace(/:\)/g,'<img src="images/emoticons/smile.gif"/>')
-        finalMsg = finalMsg.replace(/:\(/g,'<img src="images/emoticons/sad.gif"/>')
-        finalMsg = finalMsg.replace(/:D/g,'<img src="images/emoticons/happy.gif"/>')
-        finalMsg = finalMsg.replace(/dddd/g,'<img src="images/emoticons/lengua.gif"/>')
-        finalMsg = finalMsg.replace(/noniii/g,'<img src="images/emoticons/noni.gif"/>')
-        finalMsg = finalMsg.replace(/;\)/g,'<img src="images/emoticons/wink.gif"/>')
-        return finalMsg
-}
-
-var scrolled = false;
-function updateScroll(){
-    if(!scrolled){
-        var element = document.getElementById("chatContent");
-        element.scrollTop = element.scrollHeight;
-    }
-}
-/*If you want to scrolldown ONLY if the user didn't move
-$("#yourDivID").on('scroll', function(){
-    scrolled=true;
-});
 */

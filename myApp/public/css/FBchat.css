@@ -3,7 +3,7 @@ body{
 }
 header{
 	height: 30px;
-	background-color: #FCD9DD; /*#3b5998;*/
+	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
 }
 #content{
 	height: 90%;
@@ -19,7 +19,7 @@ header{
 }
 #chatHeader{
 	height: 20px;
-	background-color: #FCD9DD; /*#3b5998;*/
+	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
 	color: red;
 }
 #chatContent{
@@ -59,7 +59,7 @@ footer{
 }
 #contactsHeader{
 	height: 20px;
-	background-color: #FCD9DD; /*#3b5998;*/
+	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
 	color: red;
 }
 #contactsContent{
@@ -74,4 +74,8 @@ footer{
 
 .error{
 	border: 1px solid red;
+}
+
+.pink{
+	background-color: #FCD9DD !important;
 }

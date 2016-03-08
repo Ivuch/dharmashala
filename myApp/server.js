@@ -82,6 +82,15 @@ app.post('/text', function(req, res){
  res.send(req.body)
 })
 
+app.get('/session', function(req, res){
+	fs.readFile("../json/FBchat.json", function(err, rs){
+		if(err){
+			return console.error(err)
+		}
+		console.log("JSON levantado correctamente")
+		res.send(rs.toString())
+	})
+})
 /**  ROUTER END   **/
 
 var server = http.listen(8080, function(){
