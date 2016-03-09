@@ -12,18 +12,23 @@
 		</form>
 	</header>
 	<div id="content">
-		<form>
-			<input type="text" name="userName" placeholder="usuario...">
+		<form onsubmit="user();return false">
+			<input type="text" name="userName" placeholder="usuario">
 			<input type="text" name="lastName" placeholder="apellido">
 			<br>
 			<input type="email" name="email" placeholder="email">
 			<br>
 			<input type="confirmEmail" name="confirmEmail" placeholder="confirmar email">
 			<br>
-			<input type="password" name="password" placeholder="contraseña">
+			<input type="password" name="pass" placeholder="contraseña">
 			<br>
-			<p>deberia: Fecha denacimiento</p><br>
-			<p>deberia: sexo hombre mujer (radio)</p><br>
+			<input type="date" name="date">
+			<br>
+			Femenino
+			<input type="radio" name="gender" value="female">
+			Masculino
+			<input type="radio" name="gender" value="male">
+			<br>
 			<input type="submit">
 		</form>
 	</div>

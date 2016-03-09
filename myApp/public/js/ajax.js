@@ -49,6 +49,42 @@ function login(){
   }
 }
 
+function user(){
+  var url = baseURL+"/user"
+  var userName = $("input[name=userName]")
+  var lastName= $("input[name=lastName]")
+  var email= $("input[name=email]")
+  var pass = $("input[name=pass]")
+  var gender = $("input[name=gender]:checked")
+  var params = "userName="+userName.val()+"&lastName="+lastName.val()+"&email="+email.val()+"&password="+pass.val()+"&gender="+gender.val()
+  var xhr = getNewXHRObject()
+  xhr.open("POST", url, true)
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(params)
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE ) {
+       if(xhr.status == 200){
+          var content = xhr.getResponseHeader("Content-Type")
+          if(content == "application/json; charset=utf-8"){
+            var json = JSON.parse(xhr.responseText)
+            if(json.isERROR){
+              userName.addClass("error")
+              pass.addClass("error")
+            }
+          }else{
+            document.open()
+            document.write(xhr.responseText)
+            document.close()
+          }  
+        }else if(xhr.status == 400) {
+          alert('There was an error 400')
+        }else {
+          alert('something else other than 200 was returned')
+      }
+    }
+  }
+}
+
  /* AJAX Request Template2: "HTTP POST verb - Chat AJAX implementation."
 function ajaxReq(){
   var text = document.getElementById("chatForm").elements["text"]

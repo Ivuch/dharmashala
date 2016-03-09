@@ -91,6 +91,10 @@ app.get('/session', function(req, res){
 		res.send(rs.toString())
 	})
 })
+
+app.post('/user', function(req, res){
+	console.log(req.body)
+})
 /**  ROUTER END   **/
 
 var server = http.listen(8080, function(){
