@@ -46,7 +46,7 @@ $('input[name="text"]').click(function(){
          if(xhr.status == 200){
             var json = JSON.parse(xhr.responseText)
             var text= json.user.conversations[0].messages[0].text
-             document.getElementById("chatContent").innerHTML = text;
+             document.getElementById("chatContent").innerHTML = innerHTML+'<br><span>'+text+'</span>';
          }
          else if(xhr.status == 400) {
             alert('There was an error 400')

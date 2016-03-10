@@ -4,51 +4,71 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 var fs = require("fs")
 var bodyParser = require('body-parser')
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser')//<---- Necesito realmente esto?
 var session = require('express-session')
 var mongoose = require('mongoose')
 
-/* Mongoose DB*/
+var sessionMiddleware = session({
+  secret:'S3KR3T',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+});
+
+app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
+app.use(express.static(__dirname+"/public"))
+app.use(sessionMiddleware);
+
+/********************* Mongoose ***********************/
 mongoose.connect('mongodb://127.0.0.1/myApp');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("we're connected!")
 });
-/* /Mongoose DB*/
+/********************* Mongoose ***********************/
 
 var User = require(__dirname+'/models/user')
 
+/********************* Socket.io ***********************/
+io.use(function(socket, next) {
+    sessionMiddleware(socket.request, socket.request.res, next)
+})
 
-
-/* Socket.io*/
 io.on('connection', function(socket){
   console.log('a user connected');
-
-	socket.on('chat message', function(msg){
-		 io.emit('chat message', msg);
+  var cookie_string = socket.request.headers.cookie;
+  console.log(cookie_string)
+  var session = socket.request.session
+  /*var connect_sid = parsed_cookies['connect.sid'];
+  if (connect_sid) {
+    session_store.get(connect_sid, function (error, session) {
+      console.log("msg emited by: "+session.userID)
+	  console.log("session number: "+session.id)
+	})
+  }*/
+  socket.on('chat message', function(msg){
+  	  console.log("Usuario que emite el msg: "+session.userID)
+	  console.log("msg: "+msg)
+	  io.emit('chat message', msg);
   });
   
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
 });
-
-app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
-app.use(express.static(__dirname+"/public"))
-app.use(session({
-  secret:'S3KR3T',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}))
+/********************* Socket.io ***********************/
 
 
-/**  ROUTER INIT   **/
+/********************* ROUTER ***********************/
 
 app.get('/', function(req, res){
-	res.sendFile(__dirname+"/login.html")
+	if(!req.session.userID){
+		res.sendFile(__dirname+"/login.html")
+	}else{
+		res.sendFile(__dirname+"/FBchat.html")
+	}
 })
 
 app.post('/login', function(req, res){
@@ -78,6 +98,7 @@ app.get('/text', function(req, res){
 	})
 })
 
+//deprecated
 app.post('/text', function(req, res){
  console.log(req.body)
  console.log("you are user number: "+req.session.id)
@@ -105,10 +126,8 @@ app.post('/user', function(req, res){
 	nickname: req.body.nickname,
 	email: req.body.email,
 	password: req.body.password,
-	age: 23,
+	age: 23,//<-------------------------Ver tema de la fecha/edad
 	gender: req.body.gender,
-	created_at: new Date(),
-	last_activity_at: new Date()
 	})
 
 	user.save(function(err){
@@ -119,19 +138,16 @@ app.post('/user', function(req, res){
 	//Esto debiera mapearse a /users GET (get all users)
 	User.find({}, function(err, users) {
 	  if (err) throw err;
-
-	  // object of all the users
 	  console.log(users);
 	})
 	res.sendFile(__dirname+"/login.html")
 })
-/**  ROUTER END   **/
+/********************* ROUTER ***********************/
+
 
 var server = http.listen(8080, function(){
-
-	var host = server.address().address
+	
 	var port = server.address().port
-
 	console.log("Server Running in http://127.0.0.1:"+port)
 	console.log("Base dir: "+__dirname)
 })
