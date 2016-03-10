@@ -2,11 +2,19 @@ body{
 	margin:0;
 }
 header{
-	height: 30px;
+	height: 82px;
 	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
+	text-align: center;
 }
 #content{
 	height: 90%;
+	text-align: center;
+}
+#content input{
+	padding: 5px;
+	margin: 5px;
+	border: 2px solid black;
+	border-radius: 5px;
 }
 /* CHAT APP */
 #chat{
