@@ -51,12 +51,13 @@ function login(){
 
 function user(){
   var url = baseURL+"/user"
-  var userName = $("input[name=userName]")
+  var name = $("input[name=name]")
   var lastName= $("input[name=lastName]")
+  var nickname = $("input[name=nickname]")
   var email= $("input[name=email]")
   var pass = $("input[name=pass]")
   var gender = $("input[name=gender]:checked")
-  var params = "userName="+userName.val()+"&lastName="+lastName.val()+"&email="+email.val()+"&password="+pass.val()+"&gender="+gender.val()
+  var params = "name="+name.val()+"&lastName="+lastName.val()+"&nickname="+nickname.val()+"&email="+email.val()+"&password="+pass.val()+"&gender="+gender.val()
   var xhr = getNewXHRObject()
   xhr.open("POST", url, true)
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

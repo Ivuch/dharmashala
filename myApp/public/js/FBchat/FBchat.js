@@ -1,16 +1,17 @@
 /** Document.onLoad(callback)**/
 document.addEventListener("DOMContentLoaded",function(){
-  var url= baseURL+"/session"
+  //no cookie? Why??? :(
+  var url= baseURL+"/session?id="+document.cookie
   var xhr = getNewXHRObject();
   xhr.open("GET", url, true)
   xhr.send(null)
   xhr.onreadystatechange = function() {
     if (xhr.readyState == XMLHttpRequest.DONE ) {
        if(xhr.status == 200){
-          var json = JSON.parse(xhr.responseText)
-          var name= json.user.name
+          var user = JSON.parse(xhr.responseText)
+          var name= user[0].nickname
           document.getElementById("chatHeader").innerHTML = name;
-          if(name == 'Paloma'){
+          if(name == 'Palomita'){
             $('header').html('<img src="images/logo.png">')
             $('header').addClass('pink')
             $('#chatHeader').addClass('pink')

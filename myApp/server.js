@@ -1,20 +1,27 @@
 var express = require("express")
 var app = express()
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var http = require('http').Server(app)
+var io = require('socket.io')(http)
 var fs = require("fs")
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
 var session = require('express-session')
-var mongoose = require('mongoose');
- 
+var mongoose = require('mongoose')
+
+/* Mongoose DB*/
 mongoose.connect('mongodb://127.0.0.1/myApp');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("we're connected!")
 });
- 
+/* /Mongoose DB*/
+
+var User = require(__dirname+'/models/user')
+
+
+
+/* Socket.io*/
 io.on('connection', function(socket){
   console.log('a user connected');
 
@@ -46,17 +53,13 @@ app.get('/', function(req, res){
 
 app.post('/login', function(req, res){
 	console.log(req.body)
-	fs.readFile("../json/FBchat.json", function(err, rs){
-		if(err){
-			return console.error(err)
-		}
-		console.log("JSON levantado correctamente")
-		var json = JSON.parse(rs)
-		var user = json.user.name
-		var userID = json.user.id
-		if(req.body.user == user && req.body.password == "linda"){
+	User.find({ name: req.body.user }, function(err, user) {
+		if (err) throw err;
+		console.log(user);
+		if(req.body.user == user[0].name && req.body.password == user[0].password){
 			console.log("login status: OK - "+req.session.id)
-			req.session.userID = userID
+			req.session.userID = user[0]._id
+			console.log("_id: "+req.session.userID)
 			res.sendFile(__dirname+"/FBchat.html")
 		}else{
 			console.log("not in")
@@ -83,17 +86,44 @@ app.post('/text', function(req, res){
 })
 
 app.get('/session', function(req, res){
-	fs.readFile("../json/FBchat.json", function(err, rs){
-		if(err){
-			return console.error(err)
+	User.find({ _id: req.session.userID }, function(err, user) {
+		if (err) {
+			console.log("i don't know")
+			res.json({isERROR : true})
 		}
-		console.log("JSON levantado correctamente")
-		res.send(rs.toString())
+		console.log(user);
+		res.send(user)
 	})
 })
 
+//Creates a new User
 app.post('/user', function(req, res){
 	console.log(req.body)
+	var user = new User({
+	name : req.body.name,
+	lastName: req.body.lastName,
+	nickname: req.body.nickname,
+	email: req.body.email,
+	password: req.body.password,
+	age: 23,
+	gender: req.body.gender,
+	created_at: new Date(),
+	last_activity_at: new Date()
+	})
+
+	user.save(function(err){
+		if(err) throw err
+
+		console.log("User saved successfully!")
+	})
+	//Esto debiera mapearse a /users GET (get all users)
+	User.find({}, function(err, users) {
+	  if (err) throw err;
+
+	  // object of all the users
+	  console.log(users);
+	})
+	res.sendFile(__dirname+"/login.html")
 })
 /**  ROUTER END   **/
 

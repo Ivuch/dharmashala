@@ -1,5 +1,5 @@
 var user = $("input[name=user]")
-var pass = $("input[name=password")
+var pass = $("input[name=password]")
 
 /* Clear the element and remove error css-class*/
 user.focus(function(){user.click()})
