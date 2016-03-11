@@ -74,8 +74,12 @@ app.get('/', function(req, res){
 app.post('/login', function(req, res){
 	console.log(req.body)
 	User.find({ name: req.body.user }, function(err, user) {
-		if (err) throw err;
-		console.log(user);
+		if (err){
+			console.log(err)
+			console.log("not in")
+			res.json({isERROR : true})
+		} 
+		console.log(user)
 		if(req.body.user == user[0].name && req.body.password == user[0].password){
 			console.log("login status: OK - "+req.session.id)
 			req.session.userID = user[0]._id
@@ -131,7 +135,7 @@ app.post('/user', function(req, res){
 	})
 
 	user.save(function(err){
-		if(err) throw err
+		if(err) console.log(err)
 
 		console.log("User saved successfully!")
 	})
