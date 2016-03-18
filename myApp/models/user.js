@@ -18,7 +18,7 @@ userSchema.pre('save', function(next) {
   var currentDate = new Date()
   
   // change the updated_at field to current date
-  this.updated_at = currentDate
+  this.last_activity_at = currentDate
 
   // if created_at doesn't exist, add to that field
   if (!this.created_at)
