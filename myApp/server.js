@@ -41,6 +41,7 @@ io.on('connection', function(socket){
   var cookie_string = socket.request.headers.cookie;
   console.log(cookie_string)
   var session = socket.request.session
+  console.log(io.sockets.sockets+"holaa")
   /*var connect_sid = parsed_cookies['connect.sid'];
   if (connect_sid) {
     session_store.get(connect_sid, function (error, session) {

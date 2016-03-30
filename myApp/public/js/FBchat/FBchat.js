@@ -17,6 +17,12 @@ document.addEventListener("DOMContentLoaded",function(){
             $('#chatHeader').addClass('pink')
             $('#contactsHeader').addClass('pink')
             $('span').addClass('pink')
+          }else if(user[0].name == 'ivuch'){
+            $('header').html('<h1 style="display:inline; text-align:left;">Nextel ABM</h1>')
+            $('header').addClass('nextel')
+            $('#chatHeader').addClass('nextel')
+            $('#contactsHeader').addClass('nextel')
+            $('span').addClass('nextel')
           }
        }
        else if(xhr.status == 400) {

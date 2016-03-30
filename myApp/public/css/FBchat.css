@@ -39,16 +39,16 @@ header{
 	height: 23px;
 }
 #chatContent span{
-	background-color: #E0EDFF;
+	background-color: #FEFEFE;
 	border-radius: 10px;
 	clear:both;
-   	float:right;
+   	float:left;
    	padding: 5px 8px 4px;
    	margin: 5px;
 }
 .ownMsg{
-	background-color: #FEFEFE !important;
-	float:left !important;
+	background-color: #E0EDFF !important;
+	float:right !important;
 }
 /* /CHAT APP */
 
@@ -92,4 +92,7 @@ footer{
 
 .pink{
 	background-color: #FCD9DD !important;
+}
+.nextel{
+	background-color: #e05206 !important;
 }
