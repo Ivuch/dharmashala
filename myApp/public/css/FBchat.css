@@ -33,6 +33,7 @@ header{
 #chatContent{
 	height: 235px;
 	overflow-y: auto;
+	background-color: #EDEEF1;
 }
 #chatFooter{
 	height: 23px;
@@ -42,7 +43,12 @@ header{
 	border-radius: 10px;
 	clear:both;
    	float:right;
-   	padding: 4px;
+   	padding: 5px 8px 4px;
+   	margin: 5px;
+}
+.ownMsg{
+	background-color: #FEFEFE !important;
+	float:left !important;
 }
 /* /CHAT APP */
 

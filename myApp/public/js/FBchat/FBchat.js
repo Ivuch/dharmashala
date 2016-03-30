@@ -30,17 +30,12 @@ document.addEventListener("DOMContentLoaded",function(){
 
 })
 
+/* Funcion que devuevle "hey!" 
 $('input[name="text"]').click(function(){
   var url = baseURL+"/text"
   var xhr = getNewXHRObject();
   xhr.open("GET", url, true)
   xhr.send(null)
-
-/*  var s = document.createElement("script");
-  s.type = "text/javascript";
-  s.src = "http://"+document.domain+":8080/socket.io/socket.io.js";
-  document.body.appendChild(s)
-*/
   xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE ) {
          if(xhr.status == 200){
@@ -58,20 +53,23 @@ $('input[name="text"]').click(function(){
       }
   }
 })
-
+*/
 var socket = io();
 
-/**  AJAX Request Template1: **/
-function send(){
+/**  AJAX Request Template1:  .broadcast**/
+function sendMsg(){
   var text = document.getElementById("chatForm").elements["text"]
+  var chat = document.getElementById("chatContent")
   socket.emit('chat message', text.value)
+  var finalMsg = getEmojis(text.value)
+  chat.innerHTML = chat.innerHTML+'<br>'+'<span class="ownMsg">'+finalMsg+'</span>'
 }
 
 socket.on('chat message', function(msg){
   var text = document.getElementById("chatForm").elements["text"]
   var chat = document.getElementById("chatContent")
   var finalMsg = getEmojis(msg)
-  chat.innerHTML = chat.innerHTML+'<br>'+'<span>'+finalMsg+'</span>';
+  chat.innerHTML = chat.innerHTML+'<br>'+'<span id="othersMsg">'+finalMsg+'</span>';
   updateScroll()
   text.value = ""
 });
