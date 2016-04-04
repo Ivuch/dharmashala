@@ -1,12 +1,18 @@
 var express = require("express")
 var app = express()
 var http = require('http').Server(app)
+var https = require('https');
 var io = require('socket.io')(http)
 var fs = require("fs")
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')//<---- Necesito realmente esto?
 var session = require('express-session')
 var mongoose = require('mongoose')
+var options = {
+	key: fs.readFileSync('keys/key.pem'),
+  	cert: fs.readFileSync('keys/cert.pem')
+}
+
 
 var sessionMiddleware = session({
   secret:'S3KR3T',
@@ -155,4 +161,8 @@ var server = http.listen(8080, function(){
 	var port = server.address().port
 	console.log("Server Running in http://127.0.0.1:"+port)
 	console.log("Base dir: "+__dirname)
+})
+
+var s = https.createServer(options, app).listen(4143, function(){
+	console.log("Secure conction Established - HTTPS - SSL")
 })
