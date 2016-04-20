@@ -146,12 +146,15 @@ app.post('/user', function(req, res){
 
 		console.log("User saved successfully!")
 	})
-	//Esto debiera mapearse a /users GET (get all users)
+	res.sendFile(__dirname+"/login.html")
+})
+
+app.get('/users', function(req, res){
 	User.find({}, function(err, users) {
 	  if (err) throw err;
-	  console.log(users);
+	  console.log("Obteniendo todos los usuarios desde: /users");
+	  res.json(users)
 	})
-	res.sendFile(__dirname+"/login.html")
 })
 /********************* ROUTER ***********************/
 

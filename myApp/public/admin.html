@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title>Admin</title>
+</head>
+<body>
+	<h1>Admin</h1>
+	<button onclick="getUsers()">Enviar</button>
+	<p id="sector"></p>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript">
+	function getUsers(){
+	  var url = baseURL+"/users"
+	  var xhr = getNewXHRObject()
+	  xhr.open("GET", url, true)
+	  xhr.send(null)
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState == XMLHttpRequest.DONE ) {
+	       if(xhr.status == 200){
+	          var content = xhr.getResponseHeader("Content-Type")
+	          if(content == "application/json; charset=utf-8"){
+	            var json = JSON.parse(xhr.responseText)
+	            var l = json.length
+	            var sect = document.getElementById("sector")
+	            for (i=0; i<l; i++){
+	           		sect.innerHTML = sect.innerHTML+"Password: "+json[i].password+"<br/>"
+	           	}
+	          }else{
+	          }  
+	        }else if(xhr.status == 400) {
+	          alert('There was an error 400')
+	        }else {
+	          alert('something else other than 200 was returned')
+	      }
+	    }
+	  }
+	}
+</script>
+</body>
+</html>
