@@ -1,11 +1,33 @@
 <html>
 <head>
 	<title>Admin</title>
+	<style type="text/css">
+		tr:nth-child(even) {background-color: #f2f2f2}
+		th {
+		    background-color: #4CAF50;
+		    color: white;
+		}
+		th, td {
+		    padding: 15px;
+		    text-align: left;
+		}
+		table {
+		    border-collapse: collapse;
+		}
+	</style>
 </head>
 <body>
 	<h1>Admin</h1>
 	<button onclick="getUsers()">Enviar</button>
-	<p id="sector"></p>
+	<table>
+		<tr>
+			<th>Name</td>
+			<th>Nickname</td>
+			<th>Email</td>
+			<th>Password</td>
+		</tr>
+		<tbody id="sector"></tbody>
+	</table>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript">
 	function getUsers(){
@@ -22,7 +44,11 @@
 	            var l = json.length
 	            var sect = document.getElementById("sector")
 	            for (i=0; i<l; i++){
-	           		sect.innerHTML = sect.innerHTML+"Password: "+json[i].password+"<br/>"
+	            	var row = sect.insertRow(i);
+	            	row.insertCell(0).innerHTML = json[i].name
+	            	row.insertCell(1).innerHTML = json[i].nickname
+	            	row.insertCell(2).innerHTML = json[i].email
+	            	row.insertCell(3).innerHTML = json[i].password
 	           	}
 	          }else{
 	          }  
