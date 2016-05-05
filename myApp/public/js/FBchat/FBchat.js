@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded",function(){
             $('#contactsHeader').addClass('pink')
             $('span').addClass('pink')
           }else if(user[0].name == 'ivuch'){
-            $('header').html('<h1 style="display:inline; text-align:left;">Nextel ABM</h1>')
+          //  $('header').html('<h1 style="display:inline; text-align:left;">Nextel ABM</h1>')
             $('header').addClass('nextel')
             $('#chatHeader').addClass('nextel')
             $('#contactsHeader').addClass('nextel')
@@ -60,6 +60,7 @@ $('input[name="text"]').click(function(){
   }
 })
 */
+
 var socket = io();
 
 /**  AJAX Request Template1:  .broadcast**/

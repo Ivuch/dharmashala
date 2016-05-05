@@ -128,6 +128,10 @@ app.get('/session', function(req, res){
 	})
 })
 
+app.get('/endSession', function(req, res){
+	req.session.destroy()
+	res.redirect('/')
+})
 //Creates a new User
 app.post('/user', function(req, res){
 	console.log(req.body)
