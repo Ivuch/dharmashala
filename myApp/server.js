@@ -109,13 +109,6 @@ app.get('/text', function(req, res){
 	})
 })
 
-//deprecated
-app.post('/text', function(req, res){
- console.log(req.body)
- console.log("you are user number: "+req.session.id)
- console.log("and your userID is: "+req.session.userID)
- res.send(req.body)
-})
 
 app.get('/session', function(req, res){
 	User.find({ _id: req.session.userID }, function(err, user) {
