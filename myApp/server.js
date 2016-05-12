@@ -8,18 +8,19 @@ var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')//<---- Necesito realmente esto?
 var session = require('express-session')
 var mongoose = require('mongoose')
+
+/** GLOBAL VARIABLES**/
 var options = {
 	key: fs.readFileSync('keys/key.pem'),
   	cert: fs.readFileSync('keys/cert.pem')
 }
-
-
 var sessionMiddleware = session({
   secret:'S3KR3T',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
 });
+/** GLOBAL VARIABLES**/
 
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
@@ -98,6 +99,9 @@ app.post('/login', function(req, res){
 		}
 	})
 })
+/*
+{https://www.youtube.com/watch?v=3-xJki_OVYg}}
+*/
 
 app.get('/text', function(req, res){
 	fs.readFile("../json/FBchat.json", function(err, rs){
