@@ -5,6 +5,11 @@ header{
 	height: 82px;
 	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
 }
+@media only screen and (min-width: 560px){
+	video {
+	   transform:rotate(90deg);
+	}
+}
 #content{
 	height: 90%;
 	text-align: center;
