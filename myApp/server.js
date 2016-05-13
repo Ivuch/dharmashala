@@ -1,7 +1,7 @@
 var express = require("express")
 var app = express()
 var http = require('http').Server(app)
-var https = require('https');
+var https = require('https')
 var io = require('socket.io')(http)
 var fs = require("fs")
 var bodyParser = require('body-parser')
@@ -36,7 +36,11 @@ db.once('open', function() {
 });
 /********************* Mongoose ***********************/
 
+/********************* Schemas ***********************/
+var Chat = require(__dirname+'/models/chat')
 var User = require(__dirname+'/models/user')
+/********************* Schemas ***********************/
+
 
 /********************* Socket.io ***********************/
 io.use(function(socket, next) {

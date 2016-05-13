@@ -10,7 +10,14 @@ var userSchema = new Schema({
 	age: Number,
 	gender: String,
 	created_at: Date,
-	last_activity_at: Date
+	last_activity_at: Date,
+	contacts: [
+		{
+			contact_id : { type: Schema.Types.ObjectId, ref: 'User'},
+			history_together_id :  { type: Schema.Types.ObjectId, ref: 'User'},
+			chat_id :  { type: Schema.Types.ObjectId, ref: 'Chat'} 
+		}
+	]
 })
 
 userSchema.pre('save', function(next) {
@@ -26,6 +33,7 @@ userSchema.pre('save', function(next) {
 
   next()
 })
+
 
 var User = mongoose.model('User', userSchema)
 
