@@ -27,12 +27,12 @@ app.post('/dictionary', function(req,res){
 	var datos
 	var rs = fs.readFileSync("dictionary.json")
 	console.log("RS: "+rs)
-	datos  = JSON.parse(rs)
+	datos  = JSON.parse(rs) //converts String to JS Object (String to--> JSON)
 	var last = datos.dictionary.length
 	console.log("f-end: "+req.body.word)
-	var word = {"word" : req.body.word}
-	datos.dictionary.push(word)
-	datos = JSON.stringify(datos)
+	var word = {"word" : req.body.word} //creates a JSON object 
+	datos.dictionary.push(word) //push a JSON object into dictionary JSON array
+	datos = JSON.stringify(datos) //converts JSON to String (JSON to--> String)
 	console.log("data: "+datos)
 	fs.writeFile("dictionary.json", datos,'utf8')
 	res.send()

@@ -11,6 +11,7 @@
 	</ul>
 	<button onclick="getDictionary()">Obtener dicc!</button>
 	<button onclick="postDictionary()">Add word</button>
+	<button onclick="test1()"> test</button>
 	<input type="text" placeholder="add word..." id="newWord"/>
 	<p id="words"></p>
 	<script type="text/javascript">
@@ -25,6 +26,14 @@
 		  return xhr;
 		}
 		
+		function test1(){
+			if(/[A-z]/g.test(document.getElementById("newWord").value)){
+				alert(true)
+			}
+			else{
+				alert(false)
+			}
+		}
 		function getDictionary(){
 		  //no cookie? Why??? :(
 		  var url= baseURL+"/dictionary"

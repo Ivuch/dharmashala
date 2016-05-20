@@ -8,15 +8,14 @@
 	<input type="range" min="0" max="100" value="0" oninput="showValue(this.value)" />
 	<span id="range">0</span>
 	<script type="text/javascript">
-	function showValue(newValue)
-	{
-		document.getElementById("range").innerHTML=newValue;
-	}
+		function showValue(value){
+			document.getElementById("range").innerHTML=value;
+		}
 	</script>
 	<br/>
 	<br/>
 	<p>Problems with browser compatibility? --> check <a target="_blank" href="http://www.impressivewebs.com/onchange-vs-oninput-for-range-sliders/">documentation</a> <i>* remember on IE use onchange instead of oninput</i></p>
-	<p>Wanna style your SuperCool slider? --> go to <a href="https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/">documentation</a></p>
+	<p>Wanna style your SuperCool slider? --> go to <a target="_blank" href="https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/">documentation</a></p>
 
 	<h4 style="display: inline">Slider Generator:  </h4>
 	<a target="_blank" href="http://danielstern.ca/range.css/#/">Go to the page!</a>

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",function(){
             $('#chatHeader').addClass('pink')
             $('#contactsHeader').addClass('pink')
             $('span').addClass('pink')
-          }else if(user[0].name == 'ivuch'){
+          }else if(user[0].name == 'nextel'){
           //  $('header').html('<h1 style="display:inline; text-align:left;">Nextel ABM</h1>')
             $('header').addClass('nextel')
             $('#chatHeader').addClass('nextel')
@@ -129,3 +129,24 @@ textBox.change(function(){
   $('.result').append(text[0],element,text[1]);
   $(element).attr('src','images/emoticons/lengua2.gif');
 */
+
+function addContact(){
+  var url= baseURL+"/addContact"
+  var xhr = getNewXHRObject();
+  xhr.open("PUT", url, true)
+  xhr.send(null)
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == XMLHttpRequest.DONE ) {
+       if(xhr.status == 200){
+         alert("OK")
+       }
+       else if(xhr.status == 400) {
+          alert('There was an error 400')
+       }
+       else {
+           alert('something else other than 200 was returned')
+       }
+    }
+  }
+
+}

@@ -18,19 +18,21 @@
 </head>
 <body>
 	<h1>Admin</h1>
-	<button onclick="getUsers()">Enviar</button>
 	<table>
 		<tr>
-			<th>Name</td>
-			<th>Nickname</td>
-			<th>Email</td>
-			<th>Password</td>
+			<th>Name</th>
+			<th>Nickname</th>
+			<th>Email</th>
+			<th>Password</th>
+			<th>Edit</th>
 		</tr>
 		<tbody id="sector"></tbody>
 	</table>
+	<br>
+	<a href="/">Index</a>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript">
-	function getUsers(){
+	document.addEventListener("DOMContentLoaded", function(){
 	  var url = baseURL+"/users"
 	  var xhr = getNewXHRObject()
 	  xhr.open("GET", url, true)
@@ -49,6 +51,7 @@
 	            	row.insertCell(1).innerHTML = json[i].nickname
 	            	row.insertCell(2).innerHTML = json[i].email
 	            	row.insertCell(3).innerHTML = json[i].password
+	            	row.insertCell(4).innerHTML = "<a style='text-decoration:none' href='/user/"+json[i]._id+"'>e</a>"
 	           	}
 	          }else{
 	          }  
@@ -59,7 +62,7 @@
 	      }
 	    }
 	  }
-	}
+	})
 </script>
 </body>
 </html>

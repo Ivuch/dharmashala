@@ -1,6 +1,5 @@
-
-img {
-    width: 33%;
+.floated{
+	width: 33%;
     height: auto;
     float: left; 
 }

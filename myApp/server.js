@@ -1,3 +1,4 @@
+//*********** APP ***********//
 var express = require("express")
 var app = express()
 var http = require('http').Server(app)
@@ -9,7 +10,9 @@ var cookieParser = require('cookie-parser')//<---- Necesito realmente esto?
 var session = require('express-session')
 var mongoose = require('mongoose')
 
-/** GLOBAL VARIABLES**/
+
+
+/********************* Global Variables && uses ***********************/
 var options = {
 	key: fs.readFileSync('keys/key.pem'),
   	cert: fs.readFileSync('keys/cert.pem')
@@ -19,27 +22,30 @@ var sessionMiddleware = session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
-});
-/** GLOBAL VARIABLES**/
+})
 
-app.use(bodyParser.json()); // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
+app.use(bodyParser.json()) // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })) // to support URL-encoded bodies
 app.use(express.static(__dirname+"/public"))
-app.use(sessionMiddleware);
+app.use(sessionMiddleware)
+/********************* Global Variables && uses ***********************/
+
+
 
 /********************* Mongoose ***********************/
-mongoose.connect('mongodb://127.0.0.1/myApp');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+mongoose.connect('mongodb://127.0.0.1/myApp')
+var db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function() {
-  console.log("we're connected!")
-});
-/********************* Mongoose ***********************/
+  console.log("we're connected to Mongo!")
+})
 
-/********************* Schemas ***********************/
+/****             Schemas               ****/
 var Chat = require(__dirname+'/models/chat')
 var User = require(__dirname+'/models/user')
-/********************* Schemas ***********************/
+/****             Schemas               ****/
+/********************* Mongoose ***********************/
+
 
 
 /********************* Socket.io ***********************/
@@ -48,12 +54,12 @@ io.use(function(socket, next) {
 })
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-  var cookie_string = socket.request.headers.cookie;
-  console.log(cookie_string)
+  console.log("a user's connected")
+  var cookie_string = socket.request.headers.cookie
+  console.log("socket.request.headers.cookie : "+cookie_string)
   var session = socket.request.session
-  console.log(io.sockets.sockets+"holaa")
-  /*var connect_sid = parsed_cookies['connect.sid'];
+  console.log("io.sockets.sockets : "+io.sockets.sockets)
+  /*var connect_sid = parsed_cookies['connect.sid']
   if (connect_sid) {
     session_store.get(connect_sid, function (error, session) {
       console.log("msg emited by: "+session.userID)
@@ -63,23 +69,26 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
   	  console.log("Usuario que emite el msg: "+session.userID)
 	  console.log("msg: "+msg)
-	  io.emit('chat message', msg);
-  });
+	  io.emit('chat message', msg)
+  })
   
   socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+    console.log('user disconnected')
+  })
+})
 /********************* Socket.io ***********************/
 
 
-/********************* ROUTER ***********************/
-
+/********************* Router ***********************/
 app.get('/', function(req, res){
 	if(!req.session.userID){
 		res.sendFile(__dirname+"/login.html")
+		console.log("req: "+req.toString())
+		console.log("req.session: "+req.session.id)
 	}else{
 		res.sendFile(__dirname+"/FBchat.html")
+		console.log("req: "+req.toString())
+		console.log("req.session: "+req.session.id)
 	}
 })
 
@@ -87,19 +96,23 @@ app.post('/login', function(req, res){
 	console.log(req.body)
 	User.find({ name: req.body.user }, function(err, user) {
 		if (err){
+			console.log("DANGER: 'There was a problem Querying Mongo' : ")
 			console.log(err)
-			console.log("not in")
 			res.json({isERROR : true})
-		} 
-		console.log(user)
-		if(req.body.user == user[0].name && req.body.password == user[0].password){
-			console.log("login status: OK - "+req.session.id)
-			req.session.userID = user[0]._id
-			console.log("_id: "+req.session.userID)
-			res.sendFile(__dirname+"/FBchat.html")
+		}else if(user.length < 1){
+			console.log("user doesn't Exist --> do you wanna create an user?")
+			res.json({isERROR : true})
 		}else{
-			console.log("not in")
-			res.json({isERROR : true})
+			console.log(user)
+			if(req.body.user == user[0].name && req.body.password == user[0].password){
+				console.log("login status: OK - req.session.id : "+req.session.id)
+				req.session.userID = user[0]._id
+				console.log("_id: "+req.session.userID)
+				res.sendFile(__dirname+"/FBchat.html")
+			}else{
+				console.log("User or pass not valid")
+				res.json({isERROR : true})
+			}
 		}
 	})
 })
@@ -121,10 +134,11 @@ app.get('/text', function(req, res){
 app.get('/session', function(req, res){
 	User.find({ _id: req.session.userID }, function(err, user) {
 		if (err) {
-			console.log("i don't know")
+			console.log("DANGER: 'There was a problem finding Session in SessionStorage': ")
+			console.log(err)
 			res.json({isERROR : true})
 		}
-		console.log(user);
+		console.log(user)
 		res.send(user)
 	})
 })
@@ -149,19 +163,40 @@ app.post('/user', function(req, res){
 	user.save(function(err){
 		if(err) console.log(err)
 
-		console.log("User saved successfully!")
+		console.log("User "+user.name+" created successfully!")
 	})
 	res.sendFile(__dirname+"/login.html")
 })
 
+app.get('/user/:_id', function(req, res){
+	User.findById(req.params._id, function(err, user) {
+	  if (err) throw err
+	  console.log("Obteniendo usuario "+user.name+" desde: /user/:_id")
+	  res.json(user)
+	})
+})
+
 app.get('/users', function(req, res){
 	User.find({}, function(err, users) {
-	  if (err) throw err;
-	  console.log("Obteniendo todos los usuarios desde: /users");
+	  if (err) throw err
+	  console.log("Obteniendo todos los usuarios desde: /users")
 	  res.json(users)
 	})
 })
-/********************* ROUTER ***********************/
+
+app.put('/addContact', function(req, res){
+	User.findById({_id : req.session.userID}, function(err, user) {
+	  if (err) throw err
+	  	var contacts = { contact_id : "573e060135b00ae512f9982b", history_together_id : "573e060135b00ae512f9982b", chat_id : "573e060135b00ae512f9982b" }
+	  	console.log(user)
+		user.contacts.push(contacts)
+		console.log(user)
+		user.save(function(err){if(err) console.log(err);console.log("user saved successfully")})
+		res.json(user)
+	})
+})
+/********************* Router ***********************/
+
 
 
 var server = http.listen(8080, function(){
