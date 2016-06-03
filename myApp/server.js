@@ -81,6 +81,15 @@ io.on('connection', function(socket){
 
 /********************* Router ***********************/
 app.get('/', function(req, res){
+	console.log("ESTOY POR ENTRAR")
+	for(i=0;i<101;i++)
+	{
+		fs.readFile("../json/FBchat.json", function(req, res){
+			console.log(res)
+		})
+		console.log(i)
+	}
+
 	if(!req.session.userID){
 		res.sendFile(__dirname+"/login.html")
 		console.log("req: "+req.toString())
