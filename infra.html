@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>Infra</title>
+</head>
+<body>
+	<h1>Infraestructura</h1>
+	<ul>
+		<h3>Ubuntu Server 14.04</h3>
+		<li>List all ip's conected to your server:  netstat -an --inet</li>
+		<li>Change SSH port: Port 22 to Port 2222
+			<ol>
+				<li>modify /etc/ssh/sshd_config</li>
+			
+
+			where it says: <br>
+			# What ports, IPs and protocols we listen for
+			Port 22 <---change port to what you need it to be
+			<br>
+			<li>then save and restart ssh server: service ssh restart</li>
+			</ol>
+		</li>
+		<li>Client connection: ssh user@YOUR_IP_ADDRESS -p PORT</li>
+	</ul>
+	<ul>
+		<h2>Deploy a node app:</h2>
+		<li><a target="_blank" href="http://billpatrianakos.me/blog/2015/01/15/how-do-node-web-apps-work-in-production/">Node web app in production (+NginX)</a></li>
+		<li><a target="_blank" href="https://www.google.com.ar/search?client=ubuntu&channel=fs&q=how+to+deploy+a+node+app&ie=utf-8&oe=utf-8&gfe_rd=cr&ei=yW_HVqDtG6jX8gfzu6zQBQ">how to deploy a node app? (Search)</a></li>
+		<li><a target="_blank" href="https://strongloop.com/strongblog/node-js-deploy-production-best-practice/">StrongLoop</a></li>
+		<li><a target="_blank" href="https://gun.io/blog/tutorial-deploy-node-js-server-with-example/">gun.io deploy example</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04">Complete Ubuntu 14 server - Node.js deploy application</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04">Digital Ocean: initial server ubuntu-14.04 & SSH</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/additional-recommended-steps-for-new-ubuntu-14-04-servers">Digital Ocean: firewall, NTP & Swap for ubuntu-14.04 server</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server">Digital Ocean: node.js on ubuntu-14.04 server!</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-host-name-with-digitalocean">HOST name & Domains, & email</a></li>
+		<li><a target="_blank" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04">Permanent node.js app runnning in server</a></li>
+	</ul>
+	<ul>
+		<li>All login attempts are logged to /var/log/auth.log <br>
+			<br>
+Search for brute-force SSH logins
+
+Run this command:
+<br>
+grep sshd.\*Failed /var/log/auth.log | less <br> <br>
+Search for failed connections
+
+Run this command:
+
+grep sshd.*Did /var/log/auth.log | less <br> <br>
+UPDATE:
+
+You should try restarting the syslog daemon to see if it starts to log to the correct file.
+
+sudo service rsyslog restart
+ <br><br>
+ Live log:<br>
+tail -f /var/log/auth.log
+</li>
+	</ul>
+	<br>
+	<br>
+	<a href="index.html">Index</a>
+</body>
+</html>
