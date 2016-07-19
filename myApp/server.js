@@ -69,7 +69,7 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
   	  console.log("Usuario que emite el msg: "+session.userID)
 	  console.log("msg: "+msg)
-	  io.emit('chat message', msg)
+	  socket.broadcast.emit('chat message', msg)
   })
   
   socket.on('disconnect', function(){

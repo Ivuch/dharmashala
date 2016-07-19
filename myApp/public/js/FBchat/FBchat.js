@@ -70,15 +70,15 @@ function sendMsg(){
   socket.emit('chat message', text.value)
   var finalMsg = getEmojis(text.value)
   chat.innerHTML = chat.innerHTML+'<br>'+'<span class="ownMsg">'+finalMsg+'</span>'
+  text.value = ""
+  updateScroll()
 }
 
 socket.on('chat message', function(msg){
-  var text = document.getElementById("chatForm").elements["text"]
   var chat = document.getElementById("chatContent")
   var finalMsg = getEmojis(msg)
   chat.innerHTML = chat.innerHTML+'<br>'+'<span id="othersMsg">'+finalMsg+'</span>';
   updateScroll()
-  text.value = ""
 });
 
 function getEmojis(msg){
