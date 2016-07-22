@@ -31,7 +31,9 @@
 	</div>
 	<footer><a target="_blank" href="http://expressjs.com/en/api.html#res">Express docs</a></footer>
 	<br><br>
-	 <video style="transform: scale(-1, 1);transform:rotate(90deg);" autoplay></video>
+	 <video autoplay></video>
+   <video autoplay id="remoteVideo"></video>
+   <video autoplay id="localvideo"></video>
   <img style="transform: scale(-1, 1);">
   <canvas style="transform: scale(-1, 1); display:none;"></canvas>
 
@@ -42,30 +44,32 @@
   <button onclick="addContact()">add Contact</button>
   <br>
   <br>
+  <script type="text/javascript" src="js/FBchat/adapter.js"></script>
   <script>
-      alert("width: "+window.innerWidth)
+    alert("width: "+window.innerWidth)
     alert("height: "+window.innerHeight)
-   navigator.getUserMedia  = navigator.getUserMedia ||
+    navigator.getUserMedia  = navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
                             navigator.mozGetUserMedia ||
                             navigator.msGetUserMedia;
-
-  function getCameraContext(){
-    var video = document.querySelector('video');
-    var canvas = document.querySelector('canvas');
-    var ctx = canvas.getContext('2d');
+    
     var localMediaStream = null;
-    var hdConstraints = {
-      video: {
-        mandatory: {
-          minWidth: 1280,
-          minHeight: 720
-        }
-      },
-      audio: true
-    } 
 
-  //navigator.getUserMedia(media, successCallBack, errorCallBack)
+    function getCameraContext(){
+      var video = document.querySelector('video');
+      var canvas = document.querySelector('canvas');
+      var ctx = canvas.getContext('2d');
+      var hdConstraints = {
+        video: {
+          mandatory: {
+            minWidth: 1280,
+            minHeight: 720
+          }
+        },
+        audio: true
+      } 
+
+    //navigator.getUserMedia(media, successCallBack, errorCallBack)
     navigator.getUserMedia(hdConstraints /*{video: true, audio: true}*/, 
       function(stream) { 
         video.src = window.URL.createObjectURL(stream);
@@ -112,6 +116,116 @@
     alert(window.getComputedStyle(document.getElementsByClassName("relative")[0],null).getPropertyValue('display'))
     alert(window.getComputedStyle(document.getElementById('yourID'), null).getPropertyValue('display'));
       */
+
+  //
+  var localVideo = document.getElementById('localVideo');
+  var remoteVideo = document.getElementById('remoteVideo');
+
+
+  var pc1;
+  var pc2;
+  var offerOptions = {
+    offerToReceiveAudio: 1,
+    offerToReceiveVideo: 1
+  }
+
+  var servers= null
+  window.pc1 = pc1 = new RTCPeerConnection(servers);
+  pc1.onicecandidate = function(e) {
+    onIceCandidate(pc1, e);
+  }
+  pc1.addStream(localMediaStream)
+    window.pc2 = pc2 = new RTCPeerConnection(servers);
+  pc2.onicecandidate = function(e) {
+    onIceCandidate(pc2, e);
+  };
+  pc2.onaddstream = gotRemoteStream;
+
+  pc1.addStream(localMediaStream);
+  
+  pc1.createOffer(
+    offerOptions
+  ).then(
+    onCreateOfferSuccess,
+    onCreateSessionDescriptionError
+  );
+
+
+function onCreateSessionDescriptionError(error) {
+  console.log(error.toString());
+}
+
+function onCreateOfferSuccess(desc) {
+ console.log(desc.sdp);
+  pc1.setLocalDescription(desc).then(
+    function() {
+      onSetLocalSuccess(pc1);
+    },
+    onSetSessionDescriptionError
+  );
+
+  pc2.setRemoteDescription(desc).then(
+    function() {
+      onSetRemoteSuccess(pc2);
+    },
+    onSetSessionDescriptionError
+  );
+
+  // Since the 'remote' side has no media stream we need
+  // to pass in the right constraints in order for it to
+  // accept the incoming offer of audio and video.
+  pc2.createAnswer().then(
+    onCreateAnswerSuccess,
+    onCreateSessionDescriptionError
+  );
+}
+
+function onSetLocalSuccess(pc) {
+}
+
+function onSetRemoteSuccess(pc) {
+}
+
+function onSetSessionDescriptionError(error) {
+ console.log(error.toString());
+}
+
+function gotRemoteStream(e) {
+  // Add remoteStream to global scope so it's accessible from the browser console
+  window.remoteStream = remoteVideo.srcObject = e.stream;
+}
+
+function onCreateAnswerSuccess(desc) {
+  console.log('Answer from pc2:\n' + desc.sdp);
+  pc2.setLocalDescription(desc).then(
+    function() {
+      onSetLocalSuccess(pc2);
+    },
+    onSetSessionDescriptionError
+  );
+  pc1.setRemoteDescription(desc).then(
+    function() {
+      onSetRemoteSuccess(pc1);
+    },
+    onSetSessionDescriptionError
+  );
+}
+
+function onIceCandidate(pc, event) {
+  if (event.candidate) {
+    getOtherPc(pc).addIceCandidate(
+      new RTCIceCandidate(event.candidate)
+    ).then(
+      function() {
+        console.log(pc);
+      },
+      function(err) {
+        console.log(err)
+      }
+    );
+  }
+}
+
   </script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>

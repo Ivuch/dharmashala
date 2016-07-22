@@ -5,9 +5,14 @@ header{
 	height: 82px;
 	background-color: #66ccff; /*#FCD9DD;*/ /*#3b5998;*/
 }
+video {
+	   transform:rotate(90deg);
+	   transform: scale(-1, 1);
+	}
 @media only screen and (min-width: 560px){
 	video {
-	   transform:rotate(90deg);
+	   transform:rotate(0deg);
+	   transform: scale(-1, 1);
 	}
 }
 #content{
