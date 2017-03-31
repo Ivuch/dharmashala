@@ -6,9 +6,13 @@
 	<h1>Metadata</h1>
 	<br>
 	<br>
+	<button onclick="getMetadata()">get Matadata!</button>
+	<br>
+	<br>
+	<pre id="metadata">Here!</pre>
 	<script type="text/javascript">
-		window.innerHeight
-		window.innerWidth
+	/////////////////////////////////////////
+	////////////////////////////////////////
 
 		var w = window.innerWidth
 		|| document.documentElement.clientWidth
@@ -18,12 +22,15 @@
 		|| document.documentElement.clientHeight
 		|| document.body.clientHeight; 
 
-
+	//////////////////////////////////////////
+	/*
     window.open() - open a new window
     window.close() - close the current window
     window.moveTo() -move the current window
     window.resizeTo() -resize the current window
-
+	*/
+    //////////////////////////////////////////
+    /*
     window.location.href returns the href (URL) of the current page
     window.location.hostname returns the domain name of the web host
     window.location.pathname returns the path and filename of the current page
@@ -33,6 +40,36 @@
     window.history.back() - same as clicking back in the browser
     window.history.forward() - same as clicking forward in the browser
 
+    EXTRA: 
+
+    1- Take Five (Intro)
+    2- El fumador bohemio
+    3- Se Siente
+
+    4- No acabes (SUMO)
+    5- Flores de las Hojas
+    6- Repartiendo Arte
+
+    7- Vámonos PAL Río
+    8- 
+	*/ 
+
+var metadata = {
+	os: navigator.platform,
+	browser: navigator.appCodeName,
+	browserVersion: navigator.appVersion,
+	location: location,
+	localStorage: localStorage,
+	bitsPerPixel: screen.pixelDepth,
+	bitsPerPixelForImages: screen.colorDepth,
+	bpp4ImagesDocumentation: "https://www.w3schools.com/jsref/prop_screen_colordepth.asp",
+	getNavigator: function(){return navigator}
+}
+
+function getMetadata(){console.log(metadata);
+	var meta = JSON.stringify(metadata, null, 4);
+	document.getElementById("metadata").innerHTML = meta;
+}
     
 	</script>
 </body>

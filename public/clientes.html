@@ -8,6 +8,7 @@
 		<li><h3>Citpad: </h3>connect: ssh root@198.199.84.10 -p 2222</li>
 		<li><h3>Renew Cert: </h3>
 			<ul>
+				<li>cd /home/fran/files</li>
 				<li>./certbot-auto certonly --webroot -w git/citpad -d www.citpad.com.ar</li>
 				<li>pm2 list</li>
 				<li>pm2 restart server</li>
