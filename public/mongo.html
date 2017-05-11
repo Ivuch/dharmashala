@@ -73,6 +73,26 @@
 		<li><a href="https://www.google.com.ar/search?q=together&oq=together&aqs=chrome..69i57j69i60l3j69i61j69i59.855j0j7&sourceid=chrome&ie=UTF-8#q=mongoose+schema+definition+object+id+reference">Search: mongoose schema definition object id reference</a></li>
 	</ul>
 
+	<ul>
+		<h3>Robomongo</h3>
+		<li><pre>Workaround Solution
+
+i. Use ssh port forwarding option from MAC terminal to remote mongodb server:
+
+// with password
+ssh -L localport:mongodb_ip:port user@ssh_server_ip
+ssh -L 27018:127.0.0.1:27017 user@192.168.3.28  // working example
+
+// with private key
+ssh -i /path/to/private_key.pem -L localport:mongodb_ip:port user@ssh_server_ip   
+ssh -i temp/priv_key.pem -L 27018:192.168.3.48:27017 user@192.168.3.48    // working example
+
+ii. Go to Robomongo, create connection with localhost:27018
+(Note: No need to enable SSH on Robomongo, ssh tunneling is enabled and handled by MAC terminal.)
+</pre>
+</li>
+	</ul>
+
 	<br>
 	<a href="index.html">Index</a>
 </body>
