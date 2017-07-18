@@ -10,6 +10,6 @@ app.get('/JSONModificator', function (req, res) {
   res.sendFile(__dirname+'/JSONModificator.html')
 })
 
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
+app.listen(8082, function () {
+  console.log('Example app listening on port 8082!')
 })
