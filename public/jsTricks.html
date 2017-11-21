@@ -14,6 +14,69 @@
 				}));
 			</pre>
 		</li>
+		<li>
+			<h3>Método: bind(context) & call(context)</h3>
+			<pre>
+				/**
+				Explicacion: 
+				el método bind() crea una función que cuando se ejecuta, tiene
+				un contexto "this" asociado por nosotros vía parámetro "bind(context)".
+
+				Docs: https://www.codejobs.biz/es/blog/2016/03/22/javascript-es-facil-como-funciona-el-metodo-bind-3
+				**/
+				var x = 9;
+
+				var module = {
+					x: 85;
+					getX: function(){
+						return this.x
+					}	
+				};
+
+				//Aquí regresa x: 85
+				module.getX(); 
+
+
+				var retrieveX = module.getX;
+
+				/**ó
+
+				var retrieveX = function(){
+					return this.x
+				}
+				**/
+
+				//Aquí regresa x:9, si no lo definí en éste contexto general, entonces devuelve undefined.
+				retrieveX();
+
+				var context = {
+					x: 55;
+				};
+
+				var bindGetX = retrieveX.bind(context);
+
+				//Aquí devuelve x: 55, obtenido de bind(context);
+				bindGetX();
+
+				/******************************************
+
+				El Método call(context, param1, param2, ...); 
+
+				*******************************************/
+
+				//devuelve x: 55;
+				console.log(retrieve.call(context))
+
+
+				/******************************************
+
+				El Método aply(context, array[param1, param2, ...]); 
+
+				*******************************************/
+
+				
+			</pre>
+		</li>
 	</ul>
 	<br>
 	<br>
